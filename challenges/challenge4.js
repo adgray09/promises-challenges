@@ -55,6 +55,7 @@ function makePromise(url) {
 const person1Promise = makePromise('https://swapi.co/api/people/1')
 const person2Promise = makePromise('https://swapi.co/api/people/2')
 const person3Promise = makePromise('https://swapi.co/api/people/3')
+const planet1Promise = makePromise('https://swapi.co/api/planets/1')
 
 /* Uncomment me! #1 */
 // person1Promise.then(function(personResult) {
@@ -65,13 +66,15 @@ const person3Promise = makePromise('https://swapi.co/api/people/3')
 // });
 
 /* Uncomment me! #2 */
-// Promise.all([person1Promise, person2Promise, person3Promise])
-//     .then(function(results) {
-//         for (let i = 0; i < 3; i++) {
-//             console.log(`Person ${i+1}'s name: ${results[i].name}`)
-//         }
-//     })
-//     .catch(function(err) {
-//         console.log('Got an error!')
-//         console.log(err)
-//     })
+Promise.all([person1Promise, person2Promise, person3Promise, planet1Promise])
+    .then(function(results) {
+        for (let i = 0; i < 3; i++) {
+            console.log(`Person ${i+1}'s name: ${results[i].name}`)
+        }
+        console.log("Planet name:", results.slice(-1)[0].name)
+    })
+    
+    .catch(function(err) {
+        console.log('Got an error!')
+        console.log(err)
+    })

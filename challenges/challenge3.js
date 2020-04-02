@@ -8,11 +8,17 @@
  *    function? What is its return type?
  * 
  * 
+ *    it begins with async before function and it returns the variable
+ * 
+ * 
  * 2. Uncomment block #1 and run the code using `node challenge3.js`. What is
  *    printed when we use `greetAndUppercase` like a regular function?
  * 
+ *    it prints out Promise { <pending> } 
  * 
  * 3. Uncomment block #2 and run the code again. What happens now?
+ * 
+ *    It prints HELLO THERE, DUCKY
  * 
  * 
  * 4. Write an asynchronous method 'spacer' that takes a string as input and 
@@ -61,10 +67,23 @@ function uppercaser(str) {
     });
 }
 
+function spacer(str) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function() {
+      if (typeof str === 'string') {
+        resolve(str.split('').join(' '));
+      } else {
+        reject('Spacer argument needs to be a string')
+      }
+    }, 300);
+  });
+}
+
 async function greetAndUppercase(name) {
-    greeting = await greet(name)
-    uppercasedGreeting = await uppercaser(greeting)
-    return uppercasedGreeting
+  greeting = await greet(name)
+  uppercasedGreeting = await uppercaser(greeting)
+  spacing = await spacer(uppercasedGreeting)
+    return spacing
 }
 
 /* Uncomment me! #1 */
@@ -72,10 +91,12 @@ async function greetAndUppercase(name) {
 // console.log(result)
 
 /* Uncomment me! #2 */
-// greetAndUppercase('Ducky')
-//     .then(function(result) {
-//         console.log(result)
-//     })
-//     .catch(function(err) {
-//         console.log(err)
-//     })
+greetAndUppercase('Ducky')
+    .then(function(result) {
+        console.log(result)
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+
+    
